@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Corridor Configuration</title>
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <script src='spectrum/spectrum.js'></script>
+
+	<link rel='stylesheet' href='spectrum/spectrum.css' />
+	<style type="text/css">
+		* {
+			font-family: sans-serif;
+		}
+		.sp-palette .sp-thumb-el {
+			height: 22px;
+			width: 22px;
+		}
+	</style>
+  </head>
+  <body>
+  	<h1>Orbit Settings</h1>
+    <input id='background_color_input' type='text' value='#000000'>
+	  Background Color
+	</input><br><br>
+    <input id='hour_1_color_input' type='text' value='#555555'>
+	  Hour 1 Color
+	</input><br><br>
+	<input id='hour_2_color_input' type='text' value='#555555'>
+	  Hour 2 Color
+	</input><br><br>
+	<input id='min_1_color_input' type='text' value='#555555'>
+	  Minute 1 Color
+	</input><br><br>
+	<input id='min_2_color_input' type='text' value='#555555'>
+	  Minute 2 Color
+	</input><br><br>
+	<input id='submit_button' type='button' value='Save'>
+	<script type="text/javascript">
+		function getURLVariable(name)  {
+		  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+		  var regexS = "[\\?&]"+name+"=([^&#]*)",
+		      regex = new RegExp(regexS),
+		      results = regex.exec(window.location.href);
+		  if (results == null) return "";
+		  else return results[1];
+		}
+
+		$(document).ready(function(){
+			function numToHex(number) {
+				var str = Number(number).toString(16);
+				var pad = "000000";
+				return pad.substring(0, pad.length - str.length) + str;
+			}
+
+			$("#background_color_input").val(numToHex(getURLVariable("background_color")) || "000000");
+			$("#hour_1_color_input").val(numToHex(getURLVariable("hour_1_color")) || "555555");
+			$("#hour_2_color_input").val(numToHex(getURLVariable("hour_2_color")) || "555555");
+
+			$("#min_1_color_input").val(numToHex(getURLVariable("min_1_color")) || "555555");
+			$("#min_2_color_input").val(numToHex(getURLVariable("min_2_color")) || "555555");
+			
+			var colors = [];
+			var alphaNums = ['0','5','A','F']
+			
+			$.each(alphaNums, function(i,s){
+				$.each(alphaNums, function(j,t){
+					$.each(alphaNums, function(k,u){
+						colors.push(t+s+u);
+					});
+				});
+			});
+			
+			var arrays = [], size = 8;
+			arrays.push("");
+			while (colors.length > 0)
+			    arrays.push(colors.splice(0, size));
+
+			var options = {
+			    showPaletteOnly: true,
+			    preferredFormat: "hex",
+			    hideAfterPaletteSelect:true,
+			    palette: [arrays[1],arrays[3],arrays[5],arrays[7],arrays[0],arrays[2],arrays[4],arrays[6],arrays[8]]
+			};
+
+			$("#background_color_input").spectrum(options);
+			$("#hour_1_color_input").spectrum(options);
+			$("#hour_2_color_input").spectrum(options);
+			$("#min_1_color_input").spectrum(options);
+			$("#min_2_color_input").spectrum(options);
+			
+		});
+
+		var submitButton = document.getElementById('submit_button');
+
+	  	submitButton.addEventListener('click', function() {
+	    // Get the config data from the UI elements
+		    var backgroundColor = document.getElementById('background_color_input');
+		    var hour1Color = document.getElementById('hour_1_color_input');
+		    var hour2Color = document.getElementById('hour_2_color_input');
+		    var min1Color = document.getElementById('min_1_color_input');
+		    var min2Color = document.getElementById('min_2_color_input');
+		    
+		    // Make a data object to be sent, coercing value types to integers
+		    var options = {
+		      'background_color': parseInt(backgroundColor.value.replace("#",""), 16),
+		      'hour_1_color': parseInt(hour1Color.value.replace("#",""), 16),
+		      'hour_2_color': parseInt(hour2Color.value.replace("#",""), 16),
+		      'min_1_color': parseInt(min1Color.value.replace("#",""), 16),
+		      'min_2_color': parseInt(min2Color.value.replace("#",""), 16)
+		    };
+		    // Determine the correct return URL (emulator vs real watch)
+		    function getQueryParam(variable, defaultValue) {
+		      var query = location.search.substring(1);
+		      var vars = query.split('&');
+		      for (var i = 0; i < vars.length; i++) {
+		        var pair = vars[i].split('=');
+		        if (pair[0] === variable) {
+		          return decodeURIComponent(pair[1]);
+		        }
+		      }
+		      return defaultValue || false;
+		    }
+		    var return_to = getQueryParam('return_to', 'pebblejs://close#');
+
+		    // Encode and send the data when the page closes
+
+		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
+		  });
+	</script>
+  </body>
+</html>
