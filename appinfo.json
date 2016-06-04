@@ -1,0 +1,31 @@
+{
+    "appKeys": {
+        "AppKeyBackgroundColor": 0,
+        "AppKeyHour1Color": 1,
+        "AppKeyHour2Color": 2,
+        "AppKeyMinute1Color": 3,
+        "AppKeyMinute2Color": 4
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "Pebble Technology",
+    "enableMultiJS": false,
+    "longName": "Orbit",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Orbit",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
+    "uuid": "37cabf1b-275b-4c06-b0cc-84049747c583",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
