@@ -59,7 +59,7 @@
 				return pad.substring(0, pad.length - str.length) + str;
 			}
 
-			$('#show_batt').prop('checked', getURLVariable("show_batt") == "true" ? true : false);
+			$('#show_batt').prop('checked', getURLVariable("show_batt") == 1 ? true : false);
 
 			$("#background_color_input").val(numToHex(getURLVariable("background_color")) || "000000");
 			$("#hour_1_color_input").val(numToHex(getURLVariable("hour_1_color")) || "555555");
@@ -126,7 +126,7 @@
 		      'min_2_color': parseInt(min2Color.value.replace("#",""), 16),
 		      'batt_back_color': parseInt(battBackColor.value.replace("#",""), 16),
 		      'batt_fore_color': parseInt(battForeColor.value.replace("#",""), 16),
-		      'show_batt': showBatt.checked
+		      'show_batt': showBatt.checked? 1 : 0
 		    };
 		    console.log(options);
 		    // Determine the correct return URL (emulator vs real watch)
