@@ -33,6 +33,14 @@
 	<input id='min_2_color_input' type='text' value='#555555'>
 	  Minute 2 Color
 	</input><br><br>
+	<input type="checkbox" id="show_batt" name="show_batt" value="show_batt">Always Show Battery Indicator<br><br>
+	<input id='batt_back_color_input' type='text' value='#555555'>
+	  Battery Background Color
+	</input><br><br>
+	<input id='batt_fore_color_input' type='text' value='#555555'>
+	  Battery Foreground Color
+	</input><br><br>
+
 	<input id='submit_button' type='button' value='Save'>
 	<script type="text/javascript">
 		function getURLVariable(name)  {
@@ -51,12 +59,17 @@
 				return pad.substring(0, pad.length - str.length) + str;
 			}
 
+			$('#show_batt').prop('checked', getURLVariable("show_batt") == "true" ? true : false);
+
 			$("#background_color_input").val(numToHex(getURLVariable("background_color")) || "000000");
 			$("#hour_1_color_input").val(numToHex(getURLVariable("hour_1_color")) || "555555");
 			$("#hour_2_color_input").val(numToHex(getURLVariable("hour_2_color")) || "555555");
 
 			$("#min_1_color_input").val(numToHex(getURLVariable("min_1_color")) || "555555");
 			$("#min_2_color_input").val(numToHex(getURLVariable("min_2_color")) || "555555");
+			
+			$("#batt_back_color_input").val(numToHex(getURLVariable("batt_back_color")) || "555555");
+			$("#batt_fore_color_input").val(numToHex(getURLVariable("batt_fore_color")) || "555555");
 			
 			var colors = [];
 			var alphaNums = ['0','5','A','F']
@@ -86,6 +99,8 @@
 			$("#hour_2_color_input").spectrum(options);
 			$("#min_1_color_input").spectrum(options);
 			$("#min_2_color_input").spectrum(options);
+			$("#batt_back_color_input").spectrum(options);
+			$("#batt_fore_color_input").spectrum(options);
 			
 		});
 
@@ -98,6 +113,9 @@
 		    var hour2Color = document.getElementById('hour_2_color_input');
 		    var min1Color = document.getElementById('min_1_color_input');
 		    var min2Color = document.getElementById('min_2_color_input');
+		    var battBackColor = document.getElementById('batt_back_color_input');
+		    var battForeColor = document.getElementById('batt_fore_color_input');
+		    var showBatt = document.getElementById('show_batt');
 		    
 		    // Make a data object to be sent, coercing value types to integers
 		    var options = {
@@ -105,7 +123,10 @@
 		      'hour_1_color': parseInt(hour1Color.value.replace("#",""), 16),
 		      'hour_2_color': parseInt(hour2Color.value.replace("#",""), 16),
 		      'min_1_color': parseInt(min1Color.value.replace("#",""), 16),
-		      'min_2_color': parseInt(min2Color.value.replace("#",""), 16)
+		      'min_2_color': parseInt(min2Color.value.replace("#",""), 16),
+		      'batt_back_color': parseInt(backBackColor.value.replace("#",""), 16),
+		      'batt_fore_color': parseInt(backForeColor.value.replace("#",""), 16),
+		      'show_batt': showBatt.checked
 		    };
 		    // Determine the correct return URL (emulator vs real watch)
 		    function getQueryParam(variable, defaultValue) {
