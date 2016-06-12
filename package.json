@@ -1,0 +1,40 @@
+{
+    "author": "GregThoman",
+    "dependencies": {},
+    "keywords": [],
+    "name": "orbit",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "Orbit",
+        "enableMultiJS": false,
+        "messageKeys": {
+            "AppKeyBackgroundColor": 0,
+            "AppKeyBattBackColor": 5,
+            "AppKeyBattForeColor": 6,
+            "AppKeyDateColor": 9,
+            "AppKeyHour1Color": 1,
+            "AppKeyHour2Color": 2,
+            "AppKeyMin1Color": 3,
+            "AppKeyMin2Color": 4,
+            "AppKeyShowBatt": 7,
+            "AppKeyShowDate": 8
+        },
+        "projectType": "native",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "87fb37dc-c7b1-4d89-bca7-086a0c141014",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.1.0"
+}
